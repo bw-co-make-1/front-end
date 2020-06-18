@@ -59,4 +59,4 @@ How long do you think it will take to implement these features?
 Do you anticipate working on stretch functionality after completion of a Minimal Viable Product?
 YES
 
-HI MIKE!!!!
+Hello!
