@@ -1,4 +1,5 @@
 # front-end
+
 👀 Product Vision Document
 This is the template for the Product Vision Document that teams complete after their initial icebreaker. The PVD is crucial to the planning phase and is mandatory for all groups to complete and submit to their Project Lead before starting their project.
 ☝️ Proposal
@@ -10,7 +11,7 @@ It gives a platform for people to voice their opinions
 It allows the community to decide as a whole which problems need to be addressed first
 Expedites urgency
 What is the mission statement?
-Get sh*t done!
+Get sh\*t done!
 Silence solves nothing...
 💡 Features
 
@@ -20,7 +21,7 @@ Register
 Profile
 Post photos(URLs?)
 Edit / delete issues (admins?)
-Like/upvote 
+Like/upvote
 dashboard (homepage for your area)
 What features may you wish to put in a future release?
 Comments
@@ -58,3 +59,4 @@ How long do you think it will take to implement these features?
 Do you anticipate working on stretch functionality after completion of a Minimal Viable Product?
 YES
 
+HI MIKE!!!!
