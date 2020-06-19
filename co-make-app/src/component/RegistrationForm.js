@@ -92,9 +92,14 @@ const RegistrationForm = props =>{
 
   
  return (
-    <form onSubmit={submitForm} style={{display: 'flex', alignItems: 'center', flexDirection: 'column', margin:'20px'}}>
+    <form onSubmit={submitForm} 
+    // style={{display: 'flex', alignItems: 'center', flexDirection: 'column', margin:'20px'}}
+    
+    >
         
-        <label htmlFor="name" style={{margin:'20px'}}>
+        <label htmlFor="name" 
+        // style={{margin:'20px'}}
+        >
         <input
             id="name"
             type="text"
@@ -106,7 +111,9 @@ const RegistrationForm = props =>{
             {errors.name.length > 0 ? <p className='error'>
             {errors.name} </p> : null}
         </label>
-        <label htmlFor="zipCode" style={{margin:'20px'}}>
+        <label htmlFor="zipCode" 
+        // style={{margin:'20px'}}
+        >
         <input
             
             id="zipCode"
@@ -119,7 +126,9 @@ const RegistrationForm = props =>{
             {errors.zipCode.length > 0 ? <p className='error'>
             {errors.zipCode} </p> : null}
         </label>
-        <label htmlFor="email" style={{margin:'20px'}}>
+        <label htmlFor="email" 
+        // style={{margin:'20px'}}
+        >
         <input
             id="email"
             type="text"
@@ -132,7 +141,10 @@ const RegistrationForm = props =>{
             {errors.email}</p>) : null}
         </label>
 
-        <label htmlFor="password" style={{margin:'20px'}}>
+        <label htmlFor="password" 
+        // style={{margin:'20px'}}
+        
+        >
         <input
             id="password"
             type="text"
@@ -144,7 +156,9 @@ const RegistrationForm = props =>{
             {errors.password.length > 0 ? (<p className='error'>
             {errors.password}</p>) : null}
         </label>
-        <label htmlFor='terms' className='terms' style={{margin:'20px'}}>
+        <label htmlFor='terms' className='terms' 
+        // style={{margin:'20px'}}
+        >
             <input
             type='checkbox'
             name='terms'
