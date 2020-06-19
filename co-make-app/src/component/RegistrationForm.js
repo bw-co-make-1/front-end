@@ -96,7 +96,6 @@ const RegistrationForm = props =>{
         
         <label htmlFor="name" style={{margin:'20px'}}>
         <input
-            
             id="name"
             type="text"
             placeholder="Enter First and Last Name"
