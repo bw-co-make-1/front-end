@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useHistory } from 'react';
+//added useHistory to push the page to login
+
 import * as yup from 'yup';
-import axios from 'axios'
+// import axios from 'axios'
+
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 const formSchema = yup.object().shape({
     name: yup.string().required('Name is a required field'),
@@ -9,6 +13,8 @@ const formSchema = yup.object().shape({
     password: yup.string().required('no password provided'),
     terms: yup.boolean().oneOf([true], 'please agree to terms of use')
 })
+
+const history = useHistory;
 
 const RegistrationForm = props =>{
     const [post, setPost] = useState([]);
@@ -64,12 +70,25 @@ const RegistrationForm = props =>{
         setUsers(newFormData);
     };
    
-    
-    
+    // login = e => {
+    //     e.preventDefault();
+    //     axiosWithAuth()
+    //       .post("/api/auth/login", this.state.credentials)
+    //       .then(res => {
+    //         localStorage.setItem("token", res.data.payload);
+    //         this.props.history.push("/protected");
+    //         console.log(res);
+    //       })
+    //       .catch(err =>
+    //         console.error("mm: Login.js: login: err.message: ", err.message)
+    //       );
+    //   };
+    // Added for future modification. This will be picked apart.
 
     const submitForm = event => {
         event.preventDefault();
-        axios.post("https://reqres.in/api/users", users)
+        axiosWithAuth()
+        .post("/auth/register", users) //changed API call to match
         .then(res => {
          
           setPost(res.data);
@@ -82,6 +101,9 @@ const RegistrationForm = props =>{
             password: '',
             terms: true
           });
+        //   localStorage.setItem("token", res.data.payload); //might not be needed.
+          history.push("/login");
+
         })
         .catch(err =>{
             console.log(err.res);
