@@ -51,7 +51,7 @@ export default function Form() {
     });
   }, [formState]);
 
-  const formSubmit = e => {
+  const submitForm = e => {
     e.preventDefault();
 
     axios
@@ -86,7 +86,7 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={formSubmit}>
+    <form onSubmit={submitForm}>
       {serverError ? <p className="error">{serverError}</p> : null}
       <label htmlFor="name">
         Name
