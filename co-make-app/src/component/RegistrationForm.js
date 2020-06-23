@@ -196,5 +196,11 @@ const RegistrationForm = props =>{
 
     );
 }
+const mapStateToProps = state => {
+    return {
+    //   joke: state.joke
+    }
+  }
 
+//   export default connect(mapStateToProps, {getJoke} )(Jokes)
 export default RegistrationForm;

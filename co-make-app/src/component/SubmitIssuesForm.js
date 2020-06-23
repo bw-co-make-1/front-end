@@ -45,7 +45,7 @@ export default function Form() {
   };
 
   useEffect(() => {
-    formSchema.isValid(formState).then(valid => {
+    this.formSchema.isValid(formState).then(valid => {
       console.log("valid?", valid);
       setIsButtonDisabled(!valid);
     });
