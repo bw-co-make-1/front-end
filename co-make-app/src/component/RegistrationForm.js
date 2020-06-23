@@ -73,7 +73,7 @@ const RegistrationForm = props =>{
     // login = e => {
     //     e.preventDefault();
     //     axiosWithAuth()
-    //       .post("/api/auth/login", this.state.credentials)
+    //       .post("/api/auth/register", this.state.credentials)
     //       .then(res => {
     //         localStorage.setItem("token", res.data.payload);
     //         this.props.history.push("/protected");
@@ -101,7 +101,7 @@ const RegistrationForm = props =>{
             password: '',
             terms: true
           });
-        //   localStorage.setItem("token", res.data.payload); //might not be needed.
+          localStorage.setItem("token", res.data.payload); //might not be needed.
           history.push("/login");
 
         })

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import PostCard from "../posts/PostCard.js";
+// import IssueCards from "../posts/IssueCards.js";
 
 //Currently commented out until posts can be populated, 
 // as well as the card can be worked out.
@@ -11,7 +11,7 @@ function Dashboard({ posts }) {
       {
         posts.map(post => (
           <Link key={post.id} to={`/posts/${post.id}`}>
-            {/* <PostCard post={post} /> */} 
+            {/* <IssueCards post={post} /> */} 
           </Link>
         ))
       }
