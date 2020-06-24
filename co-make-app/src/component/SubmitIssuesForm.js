@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup"; // DOCS: https://github.com/jquense/yup
 import axios from "axios";
 
-export default function Form() {
+import { connect } from 'react-redux';
+
+import { AddPosts } from '../actions';
+
+
+const Form = () => {
   const initialFormState = {
     name: "",
     email: "",
@@ -45,7 +50,7 @@ export default function Form() {
   };
 
   useEffect(() => {
-    this.formSchema.isValid(formState).then(valid => {
+    formSchema.isValid(formState).then(valid => {
       console.log("valid?", valid);
       setIsButtonDisabled(!valid);
     });
@@ -142,3 +147,10 @@ export default function Form() {
     </form>
   );
 }
+const mapStateToProps = state => {
+  return {
+    issue: state.issue
+  }
+}
+
+export default connect(mapStateToProps, {AddPosts} )(Form)

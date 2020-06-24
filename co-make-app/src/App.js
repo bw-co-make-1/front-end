@@ -8,11 +8,7 @@ import './App.css';
 import './component/forms.css';
 import SubmitIssuesForm from './component/SubmitIssuesForm';
 import IssueCards from './component/IssueCards';
-
-
-//Will change Dashboard to be set to a private route.
-// Current Private route is set up, but not deployed... Yet.
-
+import PrivateRoute from "./component/PrivateRoute";
 
 function App() {
   return (
@@ -55,9 +51,9 @@ function App() {
       <Route path='/signIn'>
         <SignInForm/>
       </Route>
-      <Route path='/dashboard' >
+      <PrivateRoute path='/dashboard' component={Dashboard}>
         <Dashboard />
-      </Route>
+      </PrivateRoute>
       <Route path='/submitIssues'> 
       {/* //new change */}
         <SubmitIssuesForm/>

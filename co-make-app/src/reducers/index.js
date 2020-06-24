@@ -48,7 +48,10 @@ PUT_ISSUE_FAIL,
   const initialState = {
     login: [],
     register: [],
-    user: [],
+    user: {
+      username: "",
+      password: "",
+    },
     issue: [],
     error: '',
     isFetching: false

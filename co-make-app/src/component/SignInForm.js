@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+import {useHistory} from "react-router-dom";
 
 import { connect } from 'react-redux';
 
@@ -6,11 +7,15 @@ import { Login } from '../actions';
 
 //import axiosWithAuth from "../utils/axiosWithAuth";
 
+
 const SignInForm = props => {
+// let history = useHistory();
+
     const [member, setMember] = useState({
         email: "",
         password: ""
     })
+
     const handleChange = (event) => {
         setMember({ 
             ...member, 
@@ -18,14 +23,17 @@ const SignInForm = props => {
         })
     }
 
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.setUser([
-            member,
-            ...props.member,
-        ]);
-        resetForm(); //allows auto reset upon submit
+        // props.setUser([
+        //     member,
+        //     ...props.member,
+        // ]);
+        Login();
+        
+        // history.push("/dashboard");
     }
 
 // const login = e => {
@@ -79,7 +87,7 @@ const SignInForm = props => {
 
 const mapStateToProps = state => {
     return {
-      register: state.login
+      login: state.login
     }
   }
 
