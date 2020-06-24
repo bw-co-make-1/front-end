@@ -7,7 +7,7 @@ import { Button, Navbar } from 'reactstrap';
 import './App.css';
 import './component/forms.css';
 import SubmitIssuesForm from './component/SubmitIssuesForm';
-
+import IssueCards from './component/IssueCards';
 
 
 //Will change Dashboard to be set to a private route.
