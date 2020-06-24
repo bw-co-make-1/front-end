@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 
+import { connect } from 'react-redux';
+
+import { Login } from '../actions';
+
 //import axiosWithAuth from "../utils/axiosWithAuth";
 
 const SignInForm = props => {
@@ -72,4 +76,15 @@ const SignInForm = props => {
         </form>
     )
 }
-export default SignInForm;
+
+const mapStateToProps = state => {
+    return {
+      register: state.login
+    }
+  }
+
+  export default connect(mapStateToProps, {Login} )(SignInForm)
+
+
+
+// export default SignInForm;

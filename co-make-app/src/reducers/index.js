@@ -40,17 +40,20 @@ REGISTER_USER_FAIL,
 
  //Edit issue - .put - /api/issue/${id}
 PUT_ISSUE_START,
-PUT_ISSUE_SUCCESSz,
+PUT_ISSUE_SUCCESS,
 PUT_ISSUE_FAIL,
 
   } from '../actions';
 
   const initialState = {
+    login: [],
+    register: [],
     user: [],
+    issue: [],
     error: '',
     isFetching: false
   };
-  
+
 
   function reducer(state = initialState, action) {
     console.log('reducer', action);
@@ -73,12 +76,151 @@ PUT_ISSUE_FAIL,
           ...state,
           error: action.payload
         };
-      //  case FETCH_USER_POST:
-      //      return {
-      //          ...state,
-      //          isFetching: false,
-      //          user: action.payload
-      //      };
+        case LOGIN_USER_START:
+          return {
+            ...state,
+            isFetching: true,
+            error: ''
+          };
+        case LOGIN_USER_SUCCESS:
+          return {
+            ...state,
+            user: action.payload,
+            isFetching: false,
+            error: ''
+          };
+        case LOGIN_USER_FAIL:
+          return {
+            ...state,
+            error: action.payload
+          };
+          case REGISTER_USER_START:
+            return {
+              ...state,
+              isFetching: true,
+              error: ''
+            };
+          case REGISTER_USER_SUCCESS:
+            return {
+              ...state,
+              user: action.payload,
+              isFetching: false,
+              error: ''
+            };
+          case REGISTER_USER_FAIL:
+            return {
+              ...state,
+              error: action.payload
+            };
+            case DEL_USER_START:
+              return {
+                ...state,
+                isFetching: true,
+                error: ''
+              };
+            case DEL_USER_SUCCESS:
+              return {
+                ...state,
+                user: action.payload,
+                isFetching: false,
+                error: ''
+              };
+            case DEL_USER_FAIL:
+              return {
+                ...state,
+                error: action.payload
+              };
+        
+        case UPDATE_USER_START:
+        return {
+          ...state,
+          isFetching: true,
+          error: ''
+        };
+      case UPDATE_USER_SUCCESS:
+        return {
+          ...state,
+          user: action.payload,
+          isFetching: false,
+          error: ''
+        };
+      case UPDATE_USER_FAIL:
+        return {
+          ...state,
+          error: action.payload
+        };
+        case FETCH_ISSUE_START:
+        return {
+          ...state,
+          isFetching: true,
+          error: ''
+        };
+      case FETCH_ISSUE_SUCCESS:
+        return {
+          ...state,
+          issue: action.payload,
+          isFetching: false,
+          error: ''
+        };
+      case FETCH_ISSUE_FAIL:
+        return {
+          ...state,
+          error: action.payload
+        };
+        case POST_ISSUE_START:
+        return {
+          ...state,
+          isFetching: true,
+          error: ''
+        };
+      case POST_ISSUE_SUCCESS:
+        return {
+          ...state,
+          issue: action.payload,
+          isFetching: false,
+          error: ''
+        };
+      case POST_ISSUE_FAIL:
+        return {
+          ...state,
+          error: action.payload
+        };
+        case DEL_ISSUE_START:
+        return {
+          ...state,
+          isFetching: true,
+          error: ''
+        };
+      case DEL_ISSUE_SUCCESS:
+        return {
+          ...state,
+          issue: action.payload,
+          isFetching: false,
+          error: ''
+        };
+      case DEL_ISSUE_FAIL:
+        return {
+          ...state,
+          error: action.payload
+        };
+        case PUT_ISSUE_START:
+        return {
+          ...state,
+          isFetching: true,
+          error: ''
+        };
+      case PUT_ISSUE_SUCCESS:
+        return {
+          ...state,
+          issue: action.payload,
+          isFetching: false,
+          error: ''
+        };
+      case PUT_ISSUE_FAIL:
+        return {
+          ...state,
+          error: action.payload
+        };
       default:
         return state;
     }

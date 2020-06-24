@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useHistory } from 'react';
 //added useHistory to push the page to login
+import { connect } from 'react-redux';
+
+import { Register } from '../actions';
+
 
 import * as yup from 'yup';
 // import axios from 'axios'
@@ -69,21 +73,7 @@ const RegistrationForm = props =>{
         validateChange(e);
         setUsers(newFormData);
     };
-   
-    // login = e => {
-    //     e.preventDefault();
-    //     axiosWithAuth()
-    //       .post("/api/auth/register", this.state.credentials)
-    //       .then(res => {
-    //         localStorage.setItem("token", res.data.payload);
-    //         this.props.history.push("/protected");
-    //         console.log(res);
-    //       })
-    //       .catch(err =>
-    //         console.error("mm: Login.js: login: err.message: ", err.message)
-    //       );
-    //   };
-    // Added for future modification. This will be picked apart.
+       
 
     const submitForm = event => {
         event.preventDefault();
@@ -198,9 +188,9 @@ const RegistrationForm = props =>{
 }
 const mapStateToProps = state => {
     return {
-    //   joke: state.joke
+      register: state.register
     }
   }
 
-//   export default connect(mapStateToProps, {getJoke} )(Jokes)
-export default RegistrationForm;
+  export default connect(mapStateToProps, {Register} )(RegistrationForm)
+// export default RegistrationForm;
