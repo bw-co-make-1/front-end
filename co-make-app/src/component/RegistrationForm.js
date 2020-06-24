@@ -86,7 +86,6 @@ const RegistrationForm = props =>{
         .catch(err =>{
             console.log(err.res);
         });
-          
     };
    
 
