@@ -1,6 +1,6 @@
-import { REGISTER_USER_START,
-    REGISTER_USER_SUCCESS,
-   REGISTER_USER_FAIL } from '../actions';
+import { REG_START,
+    REG_SUCCESS,
+   REG_FAIL } from '../constants/userconstants';
 
 //    const initialState = {
 //     // login: [],
@@ -17,11 +17,11 @@ import { REGISTER_USER_START,
 
    export default Reg = (state = {initialState}, action) => {
     switch (action.type) {
-      case userConstants.REG_START:
+      case REG_START:
         return { registering: true };
-      case userConstants.REG_SUCCESS:
+      case REG_SUCCESS:
         return {};
-      case userConstants.REG_FAIL:
+      case REG_FAIL:
         return {};
       default:
         return state

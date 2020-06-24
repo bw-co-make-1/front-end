@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {useDispatch} from "react-redux";
-import {axiosWithoutAuth as axios} from "../../utils/axiosConfig";
+import {axiosWithoutAuth as axios} from "../utils/axiosWithAuth";
 import { REGISTER_USER_START,
     REGISTER_USER_SUCCESS,
    REGISTER_USER_FAIL } from '../actions';

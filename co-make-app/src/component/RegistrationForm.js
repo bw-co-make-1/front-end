@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useHistory } from 'react';
 //added useHistory to push the page to login
-import {axiosWithoutAuth as axios} from '../utils/axiosWithAuth';
+import axiosWithoutAuth  from '../utils/axiousWithoutAuth';
 
 import { connect } from 'react-redux';
 
@@ -8,12 +8,11 @@ import { Register } from '../actions';
 
 
 import * as yup from 'yup';
-// import axios from 'axios'
-
-// import axiosWithAuth from "../utils/axiosWithAuth";
 
 const formSchema = yup.object().shape({
-    name: yup.string().required('Name is a required field'),
+    username: yup.string().required('Name is a required field'),
+    first_name: yup.string().required('Name is a required field'),
+    last_name: yup.string().required('Name is a required field'),
     // zipCode: yup.number().required().min(5), //not needed.
     email: yup.string().email().required('Must include an email'),
     password: yup.string().required('no password provided'),
@@ -81,14 +80,13 @@ const RegistrationForm = props =>{
 
     const submitForm = event => {
         event.preventDefault();
-        axios
-        .post("/register", users) //changed API call to match
+        axiosWithoutAuth()
+        .post("/Register", users) //changed API call to match
         .then(res => {
          
           setPost(res.data);
-          console.log("successful API POST!", res);
+          console.log("successful API POST!", res.data);
   
-          
           setUsers({
         username: '',
         email: '',
@@ -97,7 +95,7 @@ const RegistrationForm = props =>{
         last_name: '',
         is_admin: false
           });
-          localStorage.setItem("token", res.data.payload); //might not be needed.
+          console.log("users data within regestration", users);
           history.push("/login");
 
         })
@@ -156,21 +154,7 @@ const RegistrationForm = props =>{
             {errors.last_name.length > 0 ? <p className='error'>
             {errors.last_name} </p> : null}
         </label>
-        {/* <label htmlFor="zipCode" 
-        // style={{margin:'20px'}}
-        >
-        <input
-            
-            id="zipCode"
-            type="number"
-            placeholder="Enter Zip Code"
-            onChange={handleChanges}
-            value={users.zipCode}
-            name="zipCode"
-        />
-            {errors.zipCode.length > 0 ? <p className='error'>
-            {errors.zipCode} </p> : null}
-        </label> */}
+        
         <label htmlFor="email" 
         // style={{margin:'20px'}}
         >
@@ -192,7 +176,7 @@ const RegistrationForm = props =>{
         >
         <input
             id="password"
-            type="text"
+            type="password"
             placeholder="Enter Password"
             onChange={handleChanges}
             value={users.password}
@@ -201,7 +185,7 @@ const RegistrationForm = props =>{
             {errors.password.length > 0 ? (<p className='error'>
             {errors.password}</p>) : null}
         </label>
-        <label htmlFor='terms' className='terms' 
+        {/* <label htmlFor='terms' className='terms' 
         // style={{margin:'20px'}}
         >
             <input
@@ -211,7 +195,7 @@ const RegistrationForm = props =>{
             onChange={handleChanges}
             />
             Terms and Conditions
-        </label>
+        </label> */}
 
         <button disabled={buttonDisabled}>Submit Form</button>
         <pre>{JSON.stringify(post, null, 2)}</pre>
