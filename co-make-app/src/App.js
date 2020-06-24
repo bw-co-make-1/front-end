@@ -6,7 +6,7 @@ import { Button, Navbar } from 'reactstrap';
 import './App.css';
 import './component/forms.css';
 import SubmitIssuesForm from './component/SubmitIssuesForm';
-import IssueCards from './components/IssuesCards';
+import IssueCards from './component/IssuesCards';
 
 
 function App() {

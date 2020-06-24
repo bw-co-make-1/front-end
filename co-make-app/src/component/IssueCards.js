@@ -9,15 +9,15 @@ function IssueCards(issue) {
     return (
         <ContainerDiv>
             <h1>Name: { props.name }</h1>
-            <StyledH2>Issue: { props.issue } </StyledH2>
-            <StyledH2>Description: { props.description } </StyledH2>
-            <StyledH2>Photo: { props.photo } </StyledH2>
-            <StyledH2>City: { props.city } </StyledH2>
-            <StyledH2>State: { props.state } </StyledH2>
-            <StyledH2>Zipcode: { props.zip_Code } </StyledH2>
+            <h2>Issue: { props.issue } </h2>
+            <h2>Description: { props.description } </h2>
+            <h2>Photo: { props.photo } </h2>
+            <h2>City: { props.city } </h2>
+            <h2>State: { props.state } </h2>
+            <h2>Zipcode: { props.zip_Code } </h2>
 
         </ContainerDiv>
     )
 }
 
-export default IssueCards
+export default IssueCards();
