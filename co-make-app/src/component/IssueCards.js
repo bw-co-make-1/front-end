@@ -7,16 +7,17 @@ function IssueCards(issue) {
      
 
     return (
-        <ContainerDiv>
-            <h1>Name: { props.name }</h1>
-            <h2>Issue: { props.issue } </h2>
-            <h2>Description: { props.description } </h2>
-            <h2>Photo: { props.photo } </h2>
-            <h2>City: { props.city } </h2>
-            <h2>State: { props.state } </h2>
-            <h2>Zipcode: { props.zip_Code } </h2>
+        <div>
+            <h1>Name: { issue.name }</h1>
+            <h2>Issue: { issue.issue } </h2>
+            <h2>Description: { issue.description } </h2>
+            <h2>Photo: { issue.photo } </h2>
+            <h2>City: { issue.city } </h2>
+            <h2>State: { issue.state } </h2>
+            <h2>Zipcode: { issue.zip_Code } </h2>
+        </div>
 
-        </ContainerDiv>
+
     )
 }
 
