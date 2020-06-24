@@ -1,98 +1,64 @@
 import React, { useState} from 'react';
-import {useHistory} from "react-router-dom";
-
-import { connect } from 'react-redux';
-
-import { Login } from '../actions';
-
-//import axiosWithAuth from "../utils/axiosWithAuth";
+import {withRouter, useHistory} from "react-router-dom";
+import axiosWithAuth from "../utils/axiosWithAuth";
 
 
-const SignInForm = props => {
-// let history = useHistory();
-
-    const [member, setMember] = useState({
-        email: "",
+class SignInForm extends React.Component {
+    state = {
+        member: {
+        username: "",
         password: ""
-    })
-
-    const handleChange = (event) => {
-        setMember({ 
-            ...member, 
-            [event.target.name]: event.target.value 
-        })
+        }
     }
 
-    
+    handleChange = e => {
+        this.setState({ 
+            member: {
+            ...this.state.member, 
+            [e.target.name]: e.target.value 
+            }
+        });
+    };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // props.setUser([
-        //     member,
-        //     ...props.member,
-        // ]);
-        Login();
-        
-        // history.push("/dashboard");
-    }
+login = e => {
+    e.preventDefault(); //prevents default
+    axiosWithAuth() //In utils
+      .post("/Login", this.state.member) // API route for login
+      .then(res => {
+        localStorage.setItem("token", res.data.payload); //Token call
+        console.log(res.data);
+        this.props.history.push("/dashboard"); // Push to dashboard. Push to Dashboard works.
+        console.log(res); // show response
+      })
+      .catch(err =>
+        console.error("mm: Login.js: login: err.message: ", err.message)
+      ); // incase something breaks, it'll say so.
+  }; // Base mapping of general call. Will modify to fit.
 
-// const login = e => {
-//     e.preventDefault(); //prevents default
-//     axiosWithAuth() //In utils
-//       .post("/auth/login", member) // API route for login
-//       .then(res => {
-//         localStorage.setItem("token", res.data.payload); //Token call
-//         this.props.history.push("/protected"); // Push to dashboard. Protected is working name
-//         console.log(res); // show response
-//       })
-//       .catch(err =>
-//         console.error("mm:
-// Login.js: 
-// login: err.message: ", 
-// err.message)
-//       ); // incase something breaks, it'll say so.
-//   }; // Base mapping of general call. Will modify to fit.
-// Due to the condition of the API at the moment, this will change.
 
-    const resetForm = (event) => {
-        event.preventDefault();
-        setMember({
-            email: "",
-            role: ""
-        })
-    }
 
+render(){
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={this.login}>
             <input
-                onChange={handleChange}
+                onChange={this.handleChange}
                 type="text"
-                name="email"
-                placeholder="Email"
-                value={member.email}
+                name="username"
+                placeholder="User Name"
+                value={this.state.member.username}
             />
             <input
-                onChange={handleChange}
+                onChange={this.handleChange}
                 // type="text" 
                 type="password" //Change from type text to password. Allows password to be hidden.
                 name="password"
                 placeholder="Password"
-                value={member.password}
+                value={this.state.member.password}
             />
             <button type="submit">Submit</button>
-            <button type="button" onClick={resetForm}>Reset</button>
         </form>
     )
+    }
 }
 
-const mapStateToProps = state => {
-    return {
-      login: state.login
-    }
-  }
-
-  export default connect(mapStateToProps, {Login} )(SignInForm)
-
-
-
-// export default SignInForm;
+export default SignInForm;

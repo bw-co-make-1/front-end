@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+// import {browserHistory } from 'react-router';
+import { BrowserRouter as Router, Route, useHistory, } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
@@ -17,7 +18,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router>
+  <Router history={useHistory} >
   <Route path="/" component={App} />
 </Router>
 </Provider>,

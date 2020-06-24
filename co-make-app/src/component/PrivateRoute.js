@@ -9,7 +9,8 @@ const PrivateRoute = ({ component: Component, ...initialProps }) => {
         //check to see if we think we have a good token
         if (localStorage.getItem("token")) //when available.
          {
-          return <Component {...props} />;
+           
+          return <Component {...props}  />;
         } else {
           return <Redirect to="/login" />;
         }

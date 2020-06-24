@@ -2,7 +2,7 @@ import React from 'react';
 import RegistrationForm from './component/RegistrationForm';
 import SignInForm from './component/SignInForm';
 import Dashboard from './component/Dashboard';
-import {Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom';
 import { Button, Navbar } from 'reactstrap';
 import './App.css';
 import './component/forms.css';
@@ -44,25 +44,16 @@ function App() {
             </Button>
           </Link>
       </Navbar>
+
+      <Router>
       <Route exact path='/'>Home</Route>
-      <Route path='/register'>
-        <RegistrationForm/>
-      </Route>
-      <Route path='/signIn'>
-        <SignInForm/>
-      </Route>
-      <PrivateRoute path='/dashboard' component={Dashboard}>
-        <Dashboard />
-      </PrivateRoute>
-      <Route path='/submitIssues'> 
-      {/* //new change */}
-        <SubmitIssuesForm/>
-      </Route>
-      <Route path='/IssuesPage'>
-        {/* New change */}
-        <SignInForm/>
-      </Route>
-      
+      <Route path='/register' component={RegistrationForm} />
+      <Route path='/signIn' component={SignInForm} />
+      <Route path='/submitIssues' component={SubmitIssuesForm} /> 
+      <Switch>
+      <PrivateRoute exact path='/dashboard' component={Dashboard} />
+      </Switch>
+      </Router>
       
     </div>
 

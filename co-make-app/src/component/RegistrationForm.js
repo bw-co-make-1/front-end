@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useHistory } from 'react';
 //added useHistory to push the page to login
+import {axiosWithoutAuth as axios} from '../utils/axiosWithAuth';
+
 import { connect } from 'react-redux';
 
 import { Register } from '../actions';
@@ -8,11 +10,11 @@ import { Register } from '../actions';
 import * as yup from 'yup';
 // import axios from 'axios'
 
-import axiosWithAuth from "../utils/axiosWithAuth";
+// import axiosWithAuth from "../utils/axiosWithAuth";
 
 const formSchema = yup.object().shape({
     name: yup.string().required('Name is a required field'),
-    zipCode: yup.number().required().min(5),
+    // zipCode: yup.number().required().min(5), //not needed.
     email: yup.string().email().required('Must include an email'),
     password: yup.string().required('no password provided'),
     terms: yup.boolean().oneOf([true], 'please agree to terms of use')
@@ -25,20 +27,22 @@ const RegistrationForm = props =>{
 
 
     const [errors, setErrors] = useState({
-        name: '',
+        username: '',
         email: '',
         password: '',
-        zipCode: '',
-        terms: ''
+        first_name: '',
+        last_name: '',
+        is_admin: false
     });
 
 
     const [users, setUsers] = useState({
-        name: '',
+        username: '',
         email: '',
-        zipCode: '',
         password: '',
-        terms: false
+        first_name: '',
+        last_name: '',
+        is_admin: false
     });
 
 
@@ -77,8 +81,8 @@ const RegistrationForm = props =>{
 
     const submitForm = event => {
         event.preventDefault();
-        axiosWithAuth()
-        .post("/auth/register", users) //changed API call to match
+        axios
+        .post("/register", users) //changed API call to match
         .then(res => {
          
           setPost(res.data);
@@ -86,10 +90,12 @@ const RegistrationForm = props =>{
   
           
           setUsers({
-            name: "",
-            email: "",
-            password: '',
-            terms: true
+        username: '',
+        email: '',
+        password: '',
+        first_name: '',
+        last_name: '',
+        is_admin: false
           });
           localStorage.setItem("token", res.data.payload); //might not be needed.
           history.push("/login");
@@ -108,22 +114,49 @@ const RegistrationForm = props =>{
     // style={{display: 'flex', alignItems: 'center', flexDirection: 'column', margin:'20px'}}
     
     >
-        
-        <label htmlFor="name" 
+         <label htmlFor="username" 
         // style={{margin:'20px'}}
         >
         <input
-            id="name"
+            id="username"
             type="text"
-            placeholder="Enter First and Last Name"
+            placeholder="Enter Username"
             onChange={handleChanges}
-            value={users.name}
-            name="name"
+            value={users.username}
+            name="username"
         />
-            {errors.name.length > 0 ? <p className='error'>
-            {errors.name} </p> : null}
+            {errors.username.length > 0 ? (<p className='error'>
+            {errors.username}</p>) : null}
         </label>
-        <label htmlFor="zipCode" 
+        <label htmlFor="first_name" 
+        // style={{margin:'20px'}}
+        >
+        <input
+            id="first_name"
+            type="text"
+            placeholder="Enter First Name"
+            onChange={handleChanges}
+            value={users.first_name}
+            name="first_name"
+        />
+            {errors.first_name.length > 0 ? <p className='error'>
+            {errors.first_name} </p> : null}
+        </label>
+        <label htmlFor="last_name" 
+        // style={{margin:'20px'}}
+        >
+        <input
+            id="last_name"
+            type="text"
+            placeholder="Enter Last Name"
+            onChange={handleChanges}
+            value={users.last_name}
+            name="last_name"
+        />
+            {errors.last_name.length > 0 ? <p className='error'>
+            {errors.last_name} </p> : null}
+        </label>
+        {/* <label htmlFor="zipCode" 
         // style={{margin:'20px'}}
         >
         <input
@@ -137,7 +170,7 @@ const RegistrationForm = props =>{
         />
             {errors.zipCode.length > 0 ? <p className='error'>
             {errors.zipCode} </p> : null}
-        </label>
+        </label> */}
         <label htmlFor="email" 
         // style={{margin:'20px'}}
         >

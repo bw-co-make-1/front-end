@@ -47,14 +47,15 @@ export const PUT_ISSUE_START = 'PUT_ISSUE_START';
 export const PUT_ISSUE_SUCCESS = 'PUT_ISSUE_SUCCESS';
 export const PUT_ISSUE_FAIL = 'PUT_ISSUE_FAIL';
 
-export const Login = ({username, password}, history) => dispatch => {
+export const Login = (member, history) => dispatch => {
   dispatch({type: LOGIN_USER_START});
   axiosWithAuth()
-  .post("/Login", {username, password })
+  .post("/Login", {member })
   .then(res => {
     console.log("login:", res.data);
     dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data})
     localStorage.setItem('token', res.data.token);
+    console.log(res.data.token);
     history.push('/dashboard');
   })
   .catch(err => dispatch({ type: LOGIN_USER_FAIL, payload: err }));
