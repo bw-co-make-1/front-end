@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import * as yup from "yup"; // DOCS: https://github.com/jquense/yup
+import * as yup from "yup"; 
 import axios from "axios";
 
 export default function Form() {
   const initialFormState = {
     name: "",
     email: "",
+    city: "",
+    state: "",
+    zipCode: "",
     issue: "",
+    description: "",
+    // photo: "",
     terms: ""
   };
 
@@ -26,9 +31,13 @@ export default function Form() {
       .string()
       .email("must be a valid email address")
       .required(),
-    terms: yup.boolean().oneOf([true], "please agree with us"),
-    positions: yup.string().required("Must choose a position"),
-    motivation: yup.string().required("must say why")
+      city: yup.string().required("City is a required field"),
+      state: yup.string().required("State is a required field"),
+      zipCode: yup.number().required().min(5),
+      terms: yup.boolean().oneOf([true], "please agree with us"),
+      issue: yup.string().required("Must outline an issue"),
+      description: yup.string().required("Must describe issue in detail"),
+      terms: yup.boolean().oneOf([true], 'please agree to terms of use')
   });
 
   const validateChange = e => {
@@ -62,7 +71,12 @@ export default function Form() {
         setFormState({
           name: "",
           email: "",
+          city: "",
+          state: "",
+          zipCode: "",
           issue: "",
+          description: "",
+          photo: "",
           terms: ""
         });
 
@@ -94,6 +108,7 @@ export default function Form() {
           id="name"
           type="text"
           name="name"
+          placeholder="Enter First and Last Name"
           onChange={inputChange}
           value={formState.name}
         />
@@ -104,6 +119,7 @@ export default function Form() {
         <input
           type="text"
           name="email"
+          placeholder="Enter Email Address"
           onChange={inputChange}
           value={formState.email}
         />
@@ -111,15 +127,64 @@ export default function Form() {
           <p className="error">{errors.email}</p>
         ) : null}
       </label>
+      <label htmlFor="city">
+        City
+        <input
+          id="city"
+          type="text"
+          name="city"
+          placeholder="Enter City"
+          onChange={inputChange}
+          value={formState.city}
+        />
+        </label>
+        <label htmlFor="state">
+        State
+        <input
+          id="state"
+          type="text"
+          name="state"
+          placeholder="Enter State"
+          onChange={inputChange}
+          value={formState.state}
+        />
+        </label>
+        <label htmlFor="zipCode">
+        Zipcode
+        <input
+          id="zipCode"
+          type="number"
+          name="zipCode"
+          placeholder="Enter Zip Code"
+          onChange={inputChange}
+          value={formState.zipcode}
+        />
+        {errors.zipCode.length > 0 ? <p className='error'>
+            {errors.zipCode} </p> : null}
+        </label>
       <label htmlFor="issue">
-        Please describe the issue, its current location and how you'd like to see it addressed. 
+        What's the Issue? 
         <textarea
           name="issue"
+          placeholder="ex. Sidewalk needs maintenence"
           onChange={inputChange}
           value={formState.issue}
         />
         {errors.issue.length > 0 ? (
           <p className="error">{errors.issue}</p>
+        ) : null}
+      </label>
+
+      <label htmlFor="description">
+        Please desribe the issue and it's location. 
+        <textarea
+          name="description"
+          placeholder="ex. Sidewalk has a huge crack due to a tree root near the corner of Spring Street and Mcdowell Road."
+          onChange={inputChange}
+          value={formState.description}
+        />
+        {errors.description.length > 0 ? (
+          <p className="error">{errors.description}</p>
         ) : null}
       </label>
 
@@ -140,5 +205,6 @@ export default function Form() {
         Submit
       </button>
     </form>
+
   );
 }

@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  font-family: 'Shadows Into Light Two', cursive;
   color: white;
 }
 
@@ -18,7 +19,8 @@
 }
 
 h1 {
-  font-size: 4rem;
+  font-family: 'Indie Flower', cursive;
+  font-size: 5rem;
 }
 Navbar {
   width: 100%;
@@ -26,14 +28,19 @@ Navbar {
   justify-content: space-evenly;
 }
 
-.Mission-statement {
+.CardClass {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* .Mission-statement {
   font-size: 1.8rem;
+  font-family: 'Shadows Into Light Two', cursive;
   padding-top: 30px 10px 20px 10px;
           margin: 5% auto;
           width: 70%;
           display: flex;
           justify-content: space-between;
-          
-
-
-}
+          } */
