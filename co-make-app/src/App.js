@@ -6,11 +6,12 @@ import  NavigationBar  from './component/Navbar';
 import SubmitIssuesForm from './component/SubmitIssuesForm';
 import RegistrationForm from './component/RegistrationForm';
 import SignInForm from './component/SignInForm';
+import IssueCards from './component/IssueCards';
 
 import './App.css';
 import './component/forms.css';
 
-import IssueCards from './component/IssueCards';
+
 
 
 function App() {
