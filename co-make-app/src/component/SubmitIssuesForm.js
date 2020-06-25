@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import * as yup from "yup"; // DOCS: https://github.com/jquense/yup
+import * as yup from "yup"; 
 import axios from "axios";
 
 import { connect } from 'react-redux';
@@ -11,12 +11,15 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 
 const Form = () => {
   const initialFormState = {
-    issue: "",
-    description: "",
-    photo:"",
+    name: "",
+    email: "",
     city: "",
     state: "",
-    zip_code: "",
+    zipCode: "",
+    issue: "",
+    description: ""
+    // photo: "",
+    
   };
 
   const [post, setPost] = useState([]);
@@ -35,10 +38,11 @@ const Form = () => {
       .string()
       .email("Must contain at least some information")
       .required(),
-    photo: yup.string().required("Post a link for a picture"),
-    city: yup.string().required("What city is the Issue in?"),
-    state: yup.string().required("What state is the Issue in?"),
-    zip_code: yup.string().required("What part of the city is the Issue in?")
+      city: yup.string().required("City is a required field"),
+      state: yup.string().required("State is a required field"),
+      zipCode: yup.number().required().min(5),
+      issue: yup.string().required("Must outline an issue"),
+      description: yup.string().required("Must describe issue in detail")
   });
 
   const validateChange = e => {
@@ -55,11 +59,13 @@ const Form = () => {
   };
 
   useEffect(() => {
-    formSchema.isValid(formState).then(valid => {
+    formSchema
+    .isValid(formState)
+    .then(valid => {
       console.log("valid?", valid);
       setIsButtonDisabled(!valid);
     });
-  }, [formState]);
+  }, [formState, formSchema]);
 
   const submitForm = e => {
     e.preventDefault();
@@ -70,12 +76,14 @@ const Form = () => {
         setPost(response.data);
 
         setFormState({
-          issue: "",
-          description: "",
-          photo:"",
+          name: "",
+          email: "",
           city: "",
           state: "",
-          zip_code: "",
+          zipCode: "",
+          issue: "",
+          description: "",
+          photo: ""
         });
 
         setServerError(null);
@@ -105,18 +113,8 @@ const Form = () => {
         <input
           id="issue"
           type="text"
-          name="issue"
-          placeholder="What's the issue?"
-          onChange={inputChange}
-          value={formState.issue}
-        />
-        {errors.issue.length > 0 ? <p className="error">{errors.issue}</p> : null}
-      </label>
-      
-      <label htmlFor="description">
-        Please describe the issue, its current location and how you'd like to see it addressed. 
-        <textarea
-          name="issue"
+          name="name"
+          placeholder="Enter First and Last Name"
           onChange={inputChange}
           value={formState.description}
         />
@@ -128,7 +126,8 @@ const Form = () => {
         City
         <input
           type="text"
-          name="city"
+          name="email"
+          placeholder="Enter Email Address"
           onChange={inputChange}
           value={formState.city}
         />
@@ -136,11 +135,46 @@ const Form = () => {
           <p className="error">{errors.city}</p>
         ) : null}
       </label>
-      <label htmlFor="state">
+      <label htmlFor="city">
+        City
+        <input
+          id="city"
+          type="text"
+          name="city"
+          placeholder="Enter City"
+          onChange={inputChange}
+          value={formState.city}
+        />
+        </label>
+        <label htmlFor="state">
         State
         <input
+          id="state"
           type="text"
           name="state"
+          placeholder="Enter State"
+          onChange={inputChange}
+          value={formState.state}
+        />
+        </label>
+        <label htmlFor="zipCode">
+        Zipcode
+        <input
+          id="zipCode"
+          type="number"
+          name="zipCode"
+          placeholder="Enter Zip Code"
+          onChange={inputChange}
+          value={formState.zipcode}
+        />
+        {errors.zipCode.length > 0 ? <p className='error'>
+            {errors.zipCode} </p> : null}
+        </label>
+      <label htmlFor="issue">
+        What's the Issue? 
+        <textarea
+          name="issue"
+          placeholder="ex. Sidewalk needs maintenence"
           onChange={inputChange}
           value={formState.state}
         />
@@ -148,35 +182,27 @@ const Form = () => {
           <p className="error">{errors.state}</p>
         ) : null}
       </label>
-      <label htmlFor="zip_code">
-        Zipcode
-        <input
-          type="text"
-          name="zip_code"
+
+      <label htmlFor="description">
+        Please desribe the issue and it's location. 
+        <textarea
+          name="description"
+          placeholder="ex. Sidewalk has a huge crack due to a tree root near the corner of Spring Street and Mcdowell Road."
           onChange={inputChange}
-          value={formState.zip_code}
+          value={formState.description}
         />
-        {errors.zip_code.length > 0 ? (
-          <p className="error">{errors.zip_code}</p>
+        {errors.description.length > 0 ? (
+          <p className="error">{errors.description}</p>
         ) : null}
       </label>
-      {/* <label htmlFor="terms" className="terms">
-        <input
-          type="checkbox"
-          name="terms"
-          checked={formState.terms}
-          onChange={inputChange}
-        />
-        Terms & Conditions
-        {errors.terms.length > 0 ? (
-          <p className="error">{errors.terms}</p>
-        ) : null}
-      </label> */}
+
+      
       <pre>{JSON.stringify(post, null, 2)}</pre>
       <button disabled={isButtonDisabled} type="submit">
         Submit
       </button>
     </form>
+
   );
 }
 const mapStateToProps = state => {

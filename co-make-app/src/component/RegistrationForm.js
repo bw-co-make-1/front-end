@@ -15,8 +15,7 @@ const formSchema = yup.object().shape({
     last_name: yup.string().required('Name is a required field'),
     // zipCode: yup.number().required().min(5), //not needed.
     email: yup.string().email().required('Must include an email'),
-    password: yup.string().required('no password provided'),
-    terms: yup.boolean().oneOf([true], 'please agree to terms of use')
+    password: yup.string().required('no password provided')
 })
 
 const history = useHistory;
@@ -103,7 +102,6 @@ const RegistrationForm = props =>{
         .catch(err =>{
             console.log(err.res);
         });
-          
     };
    
 
