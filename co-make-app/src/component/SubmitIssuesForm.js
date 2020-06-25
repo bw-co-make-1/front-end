@@ -51,9 +51,9 @@ export default function Form() {
       console.log("valid?", valid);
       setIsButtonDisabled(!valid);
     });
-  }, [formState]);
+  }, [formState, formSchema]);
 
-  const formSubmit = e => {
+  const submitForm = e => {
     e.preventDefault();
 
     axios
@@ -88,7 +88,7 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={formSubmit}>
+    <form onSubmit={submitForm}>
       {serverError ? <p className="error">{serverError}</p> : null}
       <label htmlFor="name">
         Name
