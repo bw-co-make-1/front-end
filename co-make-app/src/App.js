@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {Route} from 'react-router-dom';
+
+import  NavigationBar  from './component/Navbar';
+
+import SubmitIssuesForm from './component/SubmitIssuesForm';
 import RegistrationForm from './component/RegistrationForm';
 import SignInForm from './component/SignInForm';
-import {Route, Link} from 'react-router-dom';
-import { Button, Navbar } from 'reactstrap';
+import IssueCards from './component/IssueCards';
+
 import './App.css';
 import './component/forms.css';
-import SubmitIssuesForm from './component/SubmitIssuesForm';
-import IssueCards from './component/IssueCards';
+
+
 
 
 function App() {
@@ -14,35 +19,9 @@ function App() {
     <>
     
     <div className="App">
-      <Navbar>
-        <h1> Co-Make </h1>
-          <Link to={'/'}>
-            <Button>
-              Home
-            </Button>
-          </Link>
-          <Link to={'/register'}>
-            <Button>
-              Register
-            </Button>
-          </Link>
-          <Link to={'/signIn'}>
-            <Button>
-             Sign In
-            </Button>
-          </Link>
-          <Link to={'/submitIssues'}>
-            <Button>
-             Submit Issues
-            </Button>
-          </Link>
-          <Link to={'/IssuesPage'}>
-            <Button>
-             Vote for Issues
-            </Button>
-          </Link>
-      </Navbar>
-      <Route exact path='/'>Home</Route>
+      <NavigationBar/>
+     </div>
+     <Route exact path='/'>Home</Route>
       <Route path='/register'>
         <RegistrationForm/>
       </Route>
@@ -52,12 +31,12 @@ function App() {
       <Route path='/submitIssues'>
         <SubmitIssuesForm/>
       </Route>
-      <Route path='/IssuesPage'>
-        <SignInForm/>
+      <Route path='/IssueCards'>
+        <IssueCards/>
       </Route>
       
       
-    </div>
+    
 
     {/* <div className='Mission-statement'>
     <p>Ever get frustrated that a problem in your town or neighborhood goes ages without being resolved?<br></br> You might have road issues (potholes, dangerous areas), overgrown plants, or anything else that makes living where you live a little less pleasant.<br></br> With Co-make you can make your voice heard on the issues you would like to see resolved in your community.</p> 

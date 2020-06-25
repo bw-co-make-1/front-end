@@ -82,14 +82,4 @@ html {
     color: red;
   }
   
-  .terms {
-    display: inline-block;
-    align-self: self-start;
-  }
-  
-  .terms input {
-    width: 15px;
-    display: inline-block;
-    margin-right: 5px;
-  }
-  
+ 

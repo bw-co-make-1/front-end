@@ -10,9 +10,9 @@ export default function Form() {
     state: "",
     zipCode: "",
     issue: "",
-    description: "",
+    description: ""
     // photo: "",
-    terms: ""
+    
   };
 
   const [post, setPost] = useState([]);
@@ -34,10 +34,8 @@ export default function Form() {
       city: yup.string().required("City is a required field"),
       state: yup.string().required("State is a required field"),
       zipCode: yup.number().required().min(5),
-      terms: yup.boolean().oneOf([true], "please agree with us"),
       issue: yup.string().required("Must outline an issue"),
-      description: yup.string().required("Must describe issue in detail"),
-      terms: yup.boolean().oneOf([true], 'please agree to terms of use')
+      description: yup.string().required("Must describe issue in detail")
   });
 
   const validateChange = e => {
@@ -54,11 +52,13 @@ export default function Form() {
   };
 
   useEffect(() => {
-    formSchema.isValid(formState).then(valid => {
+    formSchema
+    .isValid(formState)
+    .then(valid => {
       console.log("valid?", valid);
       setIsButtonDisabled(!valid);
     });
-  }, [formState]);
+  }, [formState, formSchema]);
 
   const submitForm = e => {
     e.preventDefault();
@@ -76,8 +76,7 @@ export default function Form() {
           zipCode: "",
           issue: "",
           description: "",
-          photo: "",
-          terms: ""
+          photo: ""
         });
 
         setServerError(null);
@@ -188,18 +187,7 @@ export default function Form() {
         ) : null}
       </label>
 
-      <label htmlFor="terms" className="terms">
-        <input
-          type="checkbox"
-          name="terms"
-          checked={formState.terms}
-          onChange={inputChange}
-        />
-        Terms & Conditions
-        {/* {errors.terms.length > 0 ? (
-          <p className="error">{errors.terms}</p>
-        ) : null} */}
-      </label>
+      
       <pre>{JSON.stringify(post, null, 2)}</pre>
       <button disabled={isButtonDisabled} type="submit">
         Submit
