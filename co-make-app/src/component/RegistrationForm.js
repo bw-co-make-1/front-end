@@ -13,7 +13,6 @@ const formSchema = yup.object().shape({
     username: yup.string().required('Name is a required field'),
     first_name: yup.string().required('Name is a required field'),
     last_name: yup.string().required('Name is a required field'),
-    // zipCode: yup.number().required().min(5), //not needed.
     email: yup.string().email().required('Must include an email'),
     password: yup.string().required('no password provided')
 })
@@ -184,17 +183,6 @@ const RegistrationForm = props =>{
             {errors.password.length > 0 ? (<p className='error'>
             {errors.password}</p>) : null}
         </label>
-        {/* <label htmlFor='terms' className='terms' 
-        // style={{margin:'20px'}}
-        >
-            <input
-            type='checkbox'
-            name='terms'
-            checked={users.terms}
-            onChange={handleChanges}
-            />
-            Terms and Conditions
-        </label> */}
 
         <button disabled={buttonDisabled}>Submit Form</button>
         <pre>{JSON.stringify(post, null, 2)}</pre>

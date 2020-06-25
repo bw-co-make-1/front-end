@@ -1,7 +1,6 @@
-import React, { useState} from 'react';
-import {withRouter, useHistory} from "react-router-dom";
-import axiosWithAuth from "../utils/axiosWithAuth";
-
+import React from 'react';
+import {connect} from 'react-redux';
+import { Login } from '../actions';
 
 class SignInForm extends React.Component {
     state = {
@@ -20,29 +19,29 @@ class SignInForm extends React.Component {
         });
     };
 
-login = e => {
-    e.preventDefault(); //prevents default
-    axiosWithAuth() //In utils
-      .post("/Login", this.state.member) // API route for login
-      .then(res => {
-        localStorage.setItem("user", res.data.user);  //user
-        localStorage.setItem("token", res.data.token); //Token call
-        console.log(res.data);
-        console.log("user: ", res.data.user);
-        console.log("token actual: ", res.data.token);
-        this.props.history.push("/dashboard"); // Push to dashboard. Push to Dashboard works.
-        console.log(res); // show response
-      })
-      .catch(err =>
-        console.error("mm: Login.js: login: err.message: ", err.message)
-      ); // incase something breaks, it'll say so.
-  }; // Base mapping of general call. Will modify to fit.
+// login = e => {
+//     e.preventDefault(); //prevents default
+//     axiosWithAuth() //In utils
+//       .post("/Login", this.state.member) // API route for login
+//       .then(res => {
+//         localStorage.setItem("user", res.data.user);  //user
+//         localStorage.setItem("token", res.data.token); //Token call
+//         console.log(res.data);
+//         console.log("user: ", res.data.user);
+//         console.log("token actual: ", res.data.token);
+//         this.props.history.push("/dashboard"); // Push to dashboard. Push to Dashboard works.
+//         console.log(res); // show response
+//       })
+//       .catch(err =>
+//         console.error("mm: Login.js: login: err.message: ", err.message)
+//       ); // incase something breaks, it'll say so.
+//   }; // Base mapping of general call. Will modify to fit.
 
 
 
 render(){
     return (
-        <form onSubmit={this.login}>
+        <form onSubmit={this.Login}>
             <input
                 onChange={this.handleChange}
                 type="text"
@@ -64,4 +63,11 @@ render(){
     }
 }
 
-export default SignInForm;
+const mapStateToProps = state => {
+    return {
+      login: state.login
+    }
+  }
+  
+  export default connect(mapStateToProps, {Login} )(SignInForm);
+// export default SignInForm;

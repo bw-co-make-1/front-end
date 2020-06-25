@@ -47,16 +47,18 @@ export const PUT_ISSUE_START = 'PUT_ISSUE_START';
 export const PUT_ISSUE_SUCCESS = 'PUT_ISSUE_SUCCESS';
 export const PUT_ISSUE_FAIL = 'PUT_ISSUE_FAIL';
 
-export const Login = (member, history) => dispatch => {
+export const Login = (username, password, history) => dispatch => {
   dispatch({type: LOGIN_USER_START});
-  axiosWithAuth()
-  .post("/Login", { member })
+  return axiosWithAuth()
+  .post("/Login") 
   .then(res => {
     console.log("login:", res.data);
-    dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data})
     localStorage.setItem('token', res.data.token);
     console.log(res.data.token);
     history.push('/dashboard');
+
+    dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data})
+  
   })
   .catch(err => dispatch({ type: LOGIN_USER_FAIL, payload: err }));
 }
@@ -83,7 +85,7 @@ export const GetUser = ({id}) => dispatch => {
 export const GetPosts = () => dispatch => {
   dispatch({type: FETCH_ISSUE_START});
   axiosWithAuth()
-  .get(`/issue`)
+  .get(`/Issue`)
   .then(res => {
     dispatch({ type: FETCH_ISSUE_SUCCESS, payload: res.data})
   })
@@ -113,7 +115,7 @@ export const EditPosts = ({id}) => dispatch => {
 export const AddPosts = () => dispatch => {
   dispatch({type: POST_ISSUE_START});
   axiosWithAuth()
-  .delete(`/issue/`)
+  .post(`/issue/`)
   .then(res => {
     dispatch({ type: POST_ISSUE_SUCCESS, payload: res.data})
   })

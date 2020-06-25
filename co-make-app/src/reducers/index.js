@@ -54,7 +54,10 @@ PUT_ISSUE_FAIL,
     },
     issue: [],
     error: '',
-    isFetching: false
+    isFetching: false,
+    isLoggedIn: false,
+    token: '',
+    
   };
 
 
@@ -88,7 +91,8 @@ PUT_ISSUE_FAIL,
         case LOGIN_USER_SUCCESS:
           return {
             ...state,
-            user: action.payload,
+            ...action.payload,
+            isLoggedIn: true,
             isFetching: false,
             error: ''
           };

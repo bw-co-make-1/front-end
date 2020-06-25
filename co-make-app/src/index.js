@@ -19,8 +19,8 @@ const store = createStore(
 );
 
 ReactDOM.render(
-  <Provider store={store}>
-  <Router history={useHistory} >
+  <Provider store={store} history={useHistory}>
+  <Router >
   <Route path="/" component={App} />
 </Router>
 </Provider>,

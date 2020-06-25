@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import IssueCards from "../component/IssueCards.js";
-import axios from "axios";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { connect } from 'react-redux';
 import { GetPosts } from '../actions';
 
-//Currently commented out until posts can be populated, 
-// as well as the card can be worked out.
 
 const Dashboard = () => {
 const [issue, setIssue] = useState([]);
@@ -23,7 +20,7 @@ const getIssues = () => {
 };
 
 useEffect(() => {
-  getIssues(); //errors out, does not retain Token or login upon connect attempt.
+  getIssues(); 
   
 }, []);
 console.log("Updated Issues:", issue );
@@ -39,5 +36,10 @@ console.log("Updated Issues:", issue );
     </div>
   );
 }
+const mapStateToProps = state => {
+  return {
+    issue: state.issue
+  }
+}
 
-export default Dashboard;
+export default connect(mapStateToProps, {GetPosts} )(Dashboard);

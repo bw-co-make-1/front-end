@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import * as yup from "yup"; 
-import axios from "axios";
-
+import * as yup from "yup";
 import { connect } from 'react-redux';
-
 import { AddPosts } from '../actions';
 
 import axiosWithAuth from '../utils/axiosWithAuth';
@@ -18,8 +15,6 @@ const Form = () => {
     zipCode: "",
     issue: "",
     description: ""
-    // photo: "",
-    
   };
 
   const [post, setPost] = useState([]);
@@ -33,11 +28,6 @@ const Form = () => {
   const [errors, setErrors] = useState(initialFormState);
 
   const formSchema = yup.object().shape({
-    issue: yup.string().required("Can't fix something we don't know about. Please enter a name of the Issue."),
-    description: yup
-      .string()
-      .email("Must contain at least some information")
-      .required(),
       city: yup.string().required("City is a required field"),
       state: yup.string().required("State is a required field"),
       zipCode: yup.number().required().min(5),

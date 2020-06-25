@@ -24,7 +24,6 @@ function IssueCards(issues) {
             <h1>Name: { issue.name }</h1>
             <StyledH2>Issue: { issue.issue } </StyledH2>
             <StyledH2>Description: { issue.description } </StyledH2>
-            {/* <StyledH2>Photo: { issue.photo } </StyledH2> */}
             <StyledH2>City: { issue.city } </StyledH2>
             <StyledH2>State: { issue.state } </StyledH2>
             <StyledH2>Zipcode: { issue.zip_Code } </StyledH2>
