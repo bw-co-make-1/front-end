@@ -95,6 +95,7 @@ const RegistrationForm = props =>{
         last_name: '',
         is_admin: false
           });
+          
           console.log("users data within regestration", users);
           history.push("/login");
 

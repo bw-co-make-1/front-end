@@ -6,13 +6,17 @@ import { connect } from 'react-redux';
 
 import { AddPosts } from '../actions';
 
+import axiosWithAuth from '../utils/axiosWithAuth';
+
 
 const Form = () => {
   const initialFormState = {
-    name: "",
-    email: "",
     issue: "",
-    terms: ""
+    description: "",
+    photo:"",
+    city: "",
+    state: "",
+    zip_code: "",
   };
 
   const [post, setPost] = useState([]);
@@ -26,14 +30,15 @@ const Form = () => {
   const [errors, setErrors] = useState(initialFormState);
 
   const formSchema = yup.object().shape({
-    name: yup.string().required("Name is a required field"),
-    email: yup
+    issue: yup.string().required("Can't fix something we don't know about. Please enter a name of the Issue."),
+    description: yup
       .string()
-      .email("must be a valid email address")
+      .email("Must contain at least some information")
       .required(),
-    terms: yup.boolean().oneOf([true], "please agree with us"),
-    positions: yup.string().required("Must choose a position"),
-    motivation: yup.string().required("must say why")
+    photo: yup.string().required("Post a link for a picture"),
+    city: yup.string().required("What city is the Issue in?"),
+    state: yup.string().required("What state is the Issue in?"),
+    zip_code: yup.string().required("What part of the city is the Issue in?")
   });
 
   const validateChange = e => {
@@ -59,16 +64,18 @@ const Form = () => {
   const submitForm = e => {
     e.preventDefault();
 
-    axios
-      .post("h", formState)
+    axiosWithAuth()
+      .post("/Issue", formState)
       .then(response => {
         setPost(response.data);
 
         setFormState({
-          name: "",
-          email: "",
           issue: "",
-          terms: ""
+          description: "",
+          photo:"",
+          city: "",
+          state: "",
+          zip_code: "",
         });
 
         setServerError(null);
@@ -93,42 +100,67 @@ const Form = () => {
   return (
     <form onSubmit={submitForm}>
       {serverError ? <p className="error">{serverError}</p> : null}
-      <label htmlFor="name">
-        Name
-        <input
-          id="name"
-          type="text"
-          name="name"
-          onChange={inputChange}
-          value={formState.name}
-        />
-        {errors.name.length > 0 ? <p className="error">{errors.name}</p> : null}
-      </label>
-      <label htmlFor="email">
-        Email
-        <input
-          type="text"
-          name="email"
-          onChange={inputChange}
-          value={formState.email}
-        />
-        {errors.email.length > 0 ? (
-          <p className="error">{errors.email}</p>
-        ) : null}
-      </label>
       <label htmlFor="issue">
+        What's the Issue?
+        <input
+          id="issue"
+          type="text"
+          name="issue"
+          placeholder="What's the issue?"
+          onChange={inputChange}
+          value={formState.issue}
+        />
+        {errors.issue.length > 0 ? <p className="error">{errors.issue}</p> : null}
+      </label>
+      
+      <label htmlFor="description">
         Please describe the issue, its current location and how you'd like to see it addressed. 
         <textarea
           name="issue"
           onChange={inputChange}
-          value={formState.issue}
+          value={formState.description}
         />
-        {errors.issue.length > 0 ? (
-          <p className="error">{errors.issue}</p>
+        {errors.description.length > 0 ? (
+          <p className="error">{errors.description}</p>
         ) : null}
       </label>
-
-      <label htmlFor="terms" className="terms">
+<label htmlFor="city">
+        City
+        <input
+          type="text"
+          name="city"
+          onChange={inputChange}
+          value={formState.city}
+        />
+        {errors.city.length > 0 ? (
+          <p className="error">{errors.city}</p>
+        ) : null}
+      </label>
+      <label htmlFor="state">
+        State
+        <input
+          type="text"
+          name="state"
+          onChange={inputChange}
+          value={formState.state}
+        />
+        {errors.state.length > 0 ? (
+          <p className="error">{errors.state}</p>
+        ) : null}
+      </label>
+      <label htmlFor="zip_code">
+        Zipcode
+        <input
+          type="text"
+          name="zip_code"
+          onChange={inputChange}
+          value={formState.zip_code}
+        />
+        {errors.zip_code.length > 0 ? (
+          <p className="error">{errors.zip_code}</p>
+        ) : null}
+      </label>
+      {/* <label htmlFor="terms" className="terms">
         <input
           type="checkbox"
           name="terms"
@@ -136,10 +168,10 @@ const Form = () => {
           onChange={inputChange}
         />
         Terms & Conditions
-        {/* {errors.terms.length > 0 ? (
+        {errors.terms.length > 0 ? (
           <p className="error">{errors.terms}</p>
-        ) : null} */}
-      </label>
+        ) : null}
+      </label> */}
       <pre>{JSON.stringify(post, null, 2)}</pre>
       <button disabled={isButtonDisabled} type="submit">
         Submit

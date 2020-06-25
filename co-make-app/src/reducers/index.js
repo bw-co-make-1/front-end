@@ -1,7 +1,7 @@
 import {
-//  LOGIN_USER_START,
-//   LOGIN_USER_SUCCESS,
-//   LOGIN_USER_FAIL,
+ LOGIN_USER_START,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL,
   
   //register - .post - /api/register
   REGISTER_USER_START,
@@ -46,7 +46,7 @@ PUT_ISSUE_FAIL,
   } from '../actions';
 
   const initialState = {
-    // login: [],
+    login: [],
     register: [],
     member: {
       username: "",
@@ -79,24 +79,24 @@ PUT_ISSUE_FAIL,
           ...state,
           error: action.payload
         };
-        // case LOGIN_USER_START:
-        //   return {
-        //     ...state,
-        //     isFetching: true,
-        //     error: ''
-        //   };
-        // case LOGIN_USER_SUCCESS:
-        //   return {
-        //     ...state,
-        //     user: action.payload,
-        //     isFetching: false,
-        //     error: ''
-        //   };
-        // case LOGIN_USER_FAIL:
-        //   return {
-        //     ...state,
-        //     error: action.payload
-        //   };
+        case LOGIN_USER_START:
+          return {
+            ...state,
+            isFetching: true,
+            error: ''
+          };
+        case LOGIN_USER_SUCCESS:
+          return {
+            ...state,
+            user: action.payload,
+            isFetching: false,
+            error: ''
+          };
+        case LOGIN_USER_FAIL:
+          return {
+            ...state,
+            error: action.payload
+          };
           case REGISTER_USER_START:
             return {
               ...state,

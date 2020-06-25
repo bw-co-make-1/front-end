@@ -50,7 +50,7 @@ export const PUT_ISSUE_FAIL = 'PUT_ISSUE_FAIL';
 export const Login = (member, history) => dispatch => {
   dispatch({type: LOGIN_USER_START});
   axiosWithAuth()
-  .post("/Login", {member })
+  .post("/Login", { member })
   .then(res => {
     console.log("login:", res.data);
     dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data})

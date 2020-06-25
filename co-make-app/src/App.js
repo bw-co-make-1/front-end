@@ -51,9 +51,10 @@ function App() {
       <Route exact path='/'>Home</Route>
       <Route path='/register' component={RegistrationForm} />
       <Route path='/signIn' component={SignInForm} />
-      <Route path='/submitIssues' component={SubmitIssuesForm} /> 
+      
       <Switch>
       <PrivateRoute exact path='/dashboard' component={Dashboard} />
+      <Route path='/submitIssues' component={SubmitIssuesForm} /> 
       </Switch>
       </Router>
       

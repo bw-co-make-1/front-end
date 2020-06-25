@@ -25,8 +25,11 @@ login = e => {
     axiosWithAuth() //In utils
       .post("/Login", this.state.member) // API route for login
       .then(res => {
-        localStorage.setItem("token", res.data.payload); //Token call
+        localStorage.setItem("user", res.data.user);  //user
+        localStorage.setItem("token", res.data.token); //Token call
         console.log(res.data);
+        console.log("user: ", res.data.user);
+        console.log("token actual: ", res.data.token);
         this.props.history.push("/dashboard"); // Push to dashboard. Push to Dashboard works.
         console.log(res); // show response
       })
