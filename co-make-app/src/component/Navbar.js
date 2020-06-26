@@ -29,6 +29,11 @@ const NavigationBar = () => {
                 Submit Issues
                 </Button>
             </Link>
+            <Link to={'/IssueCards'}>
+                <Button>
+                Issues
+                </Button>
+                </Link>
       </Navbar>
       
     </div>

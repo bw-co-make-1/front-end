@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <NavigationBar/>
      </div>
-     <Route exact path='/'>Home</Route>
+     <Route exact path='/'></Route>
       <Route path='/register'>
         <RegistrationForm/>
       </Route>
@@ -34,6 +34,7 @@ function App() {
       <Route path='/IssueCards'>
         <IssueCards/>
       </Route>
+      
       
       
     
