@@ -19,7 +19,7 @@ function IssueCards(issues) {
 
     return (
         <ContainerDiv>
-            { issue.map ( (i) =>(<div>
+            { issue.map ( (i) =>(<div key={Date.now()}>
             <h1>Name: { i.name }</h1>
             <StyledH2>Issue: { i.issue } </StyledH2>
             <StyledH2>Description: { i.description } </StyledH2>

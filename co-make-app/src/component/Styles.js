@@ -12,8 +12,8 @@ import styled from 'styled-components';
         line-height: 1px;
         background-color: rgba(176, 188, 204, 0.8);
         width: 40%;
-        padding: 10px;
         margin: 20px;
+        padding: 10px;
         border-radius: 30px;
         h1 {
             font-family: ${ShadowsIntoLightTwo}, sans-serif;

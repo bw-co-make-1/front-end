@@ -31,9 +31,9 @@ const NavigationBar = () => {
             </Link>
             <Link to={'/IssueCards'}>
                 <Button>
-                Issues
+                    Issues
                 </Button>
-                </Link>
+            </Link>
       </Navbar>
       
     </div>

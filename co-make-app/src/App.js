@@ -2,7 +2,6 @@ import React from 'react';
 import {Route} from 'react-router-dom';
 
 import  NavigationBar  from './component/Navbar';
-
 import SubmitIssuesForm from './component/SubmitIssuesForm';
 import RegistrationForm from './component/RegistrationForm';
 import SignInForm from './component/SignInForm';
@@ -21,7 +20,7 @@ function App() {
     <div className="App">
       <NavigationBar/>
      </div>
-     <Route exact path='/'></Route>
+     <Route exact path='/' ></Route>
       <Route path='/register'>
         <RegistrationForm/>
       </Route>
