@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useHistory } from "react";
 import * as yup from "yup";
 import { connect } from 'react-redux';
 import { AddPosts } from '../actions';
+// import {useHistory} from 'react-router-dom';
+import axios from 'axios';
+import axiosWithAuth from '../utils/axiosWithAuth.js';
 
-import axiosWithAuth from '../utils/axiosWithAuth';
+const token = localStorage.getItem("token");
 
-
+const history = useHistory;
 const Form = () => {
   const initialFormState = {
-    name: "",
-    email: "",
+    
+    
     city: "",
     state: "",
-    zipCode: "",
+    zip_code: "",
     issue: "",
     description: ""
   };
@@ -28,9 +31,10 @@ const Form = () => {
   const [errors, setErrors] = useState(initialFormState);
 
   const formSchema = yup.object().shape({
+    
       city: yup.string().required("City is a required field"),
       state: yup.string().required("State is a required field"),
-      zipCode: yup.number().required().min(5),
+      zip_code: yup.number().required().min(5),
       issue: yup.string().required("Must outline an issue"),
       description: yup.string().required("Must describe issue in detail")
   });
@@ -61,22 +65,23 @@ const Form = () => {
     e.preventDefault();
 
     axiosWithAuth()
-      .post("/Issue", formState)
+      .post("Issue", formState)
       .then(response => {
         setPost(response.data);
 
         setFormState({
-          name: "",
-          email: "",
+          
+          
           city: "",
           state: "",
-          zipCode: "",
+          zip_code: "",
           issue: "",
           description: "",
           photo: ""
         });
 
-        setServerError(null);
+        // setServerError(null);
+        history.push('/Dashboard')
       })
       .catch(err => {
         setServerError("oops! something happened!");
@@ -99,80 +104,17 @@ const Form = () => {
     <form onSubmit={submitForm}>
       {serverError ? <p className="error">{serverError}</p> : null}
       <label htmlFor="issue">
-        What's the Issue?
-        <input
-          id="issue"
-          type="text"
-          name="name"
-          placeholder="Enter First and Last Name"
-          onChange={inputChange}
-          value={formState.description}
-        />
-        {errors.description.length > 0 ? (
-          <p className="error">{errors.description}</p>
-        ) : null}
-      </label>
-<label htmlFor="city">
-        City
-        <input
-          type="text"
-          name="email"
-          placeholder="Enter Email Address"
-          onChange={inputChange}
-          value={formState.city}
-        />
-        {errors.city.length > 0 ? (
-          <p className="error">{errors.city}</p>
-        ) : null}
-      </label>
-      <label htmlFor="city">
-        City
-        <input
-          id="city"
-          type="text"
-          name="city"
-          placeholder="Enter City"
-          onChange={inputChange}
-          value={formState.city}
-        />
-        </label>
-        <label htmlFor="state">
-        State
-        <input
-          id="state"
-          type="text"
-          name="state"
-          placeholder="Enter State"
-          onChange={inputChange}
-          value={formState.state}
-        />
-        </label>
-        <label htmlFor="zipCode">
-        Zipcode
-        <input
-          id="zipCode"
-          type="number"
-          name="zipCode"
-          placeholder="Enter Zip Code"
-          onChange={inputChange}
-          value={formState.zipcode}
-        />
-        {errors.zipCode.length > 0 ? <p className='error'>
-            {errors.zipCode} </p> : null}
-        </label>
-      <label htmlFor="issue">
         What's the Issue? 
         <textarea
           name="issue"
           placeholder="ex. Sidewalk needs maintenence"
           onChange={inputChange}
-          value={formState.state}
+          value={formState.issue}
         />
         {errors.state.length > 0 ? (
           <p className="error">{errors.state}</p>
         ) : null}
       </label>
-
       <label htmlFor="description">
         Please desribe the issue and it's location. 
         <textarea
@@ -185,6 +127,46 @@ const Form = () => {
           <p className="error">{errors.description}</p>
         ) : null}
       </label>
+<label htmlFor="city">
+        City
+        <input
+          type="text"
+          name="city"
+          placeholder="Enter city"
+          onChange={inputChange}
+          value={formState.city}
+        />
+        {errors.city.length > 0 ? (
+          <p className="error">{errors.city}</p>
+        ) : null}
+      </label>
+        <label htmlFor="state">
+        State
+        <input
+          id="state"
+          type="text"
+          name="state"
+          placeholder="Enter State"
+          onChange={inputChange}
+          value={formState.state}
+        />
+        </label>
+        <label htmlFor="zip_code">
+        Zipcode
+        <input
+          id="zip_code"
+          type="number"
+          name="zip_code"
+          placeholder="Enter Zip Code"
+          onChange={inputChange}
+          value={formState.zip_code}
+        />
+        {errors.zip_code.length > 0 ? <p className='error'>
+            {errors.zip_code} </p> : null}
+        </label>
+      
+
+      
 
       
       <pre>{JSON.stringify(post, null, 2)}</pre>
@@ -195,10 +177,6 @@ const Form = () => {
 
   );
 }
-const mapStateToProps = state => {
-  return {
-    issue: state.issue
-  }
-}
 
-export default connect(mapStateToProps, {AddPosts} )(Form)
+
+export default Form;

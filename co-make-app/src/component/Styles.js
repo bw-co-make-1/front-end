@@ -7,11 +7,12 @@ import styled from 'styled-components';
     
     // Styles
     export const ContainerDiv = styled.div`
+    
         display: flex;
         flex-direction: column;
         line-height: 1px;
         background-color: rgba(176, 188, 204, 0.8);
-        width: 40%;
+        width: 80%;
         margin-bottom: 25px;
         margin-right: 45px;
         border-radius: 30px;

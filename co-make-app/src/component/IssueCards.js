@@ -11,7 +11,7 @@ import '../App.css';
 
 
 
-function IssueCards(issues) {
+const IssueCards = post => {
 
     const [vote, newVotes] = useState();
     const newVote = () => {
@@ -21,12 +21,12 @@ function IssueCards(issues) {
 
     return (
         <ContainerDiv>
-            <h1>Name: { issue.name }</h1>
-            <StyledH2>Issue: { issue.issue } </StyledH2>
-            <StyledH2>Description: { issue.description } </StyledH2>
-            <StyledH2>City: { issue.city } </StyledH2>
-            <StyledH2>State: { issue.state } </StyledH2>
-            <StyledH2>Zipcode: { issue.zip_Code } </StyledH2>
+            <h1>Name: { post.name }</h1>
+            <StyledH2>Issue: { post.issue } </StyledH2>
+            <StyledH2>Description: { post.description } </StyledH2>
+            <StyledH2>City: { post.city } </StyledH2>
+            <StyledH2>State: { post.state } </StyledH2>
+            <StyledH2>Zipcode: { post.zip_Code } </StyledH2>
             <IssueVotes clickEvent = {newVote} vote = {vote}/>
         </ContainerDiv>
         

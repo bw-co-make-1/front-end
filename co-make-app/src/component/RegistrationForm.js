@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useHistory } from 'react';
 //added useHistory to push the page to login
-import axiosWithoutAuth  from '../utils/axiousWithoutAuth';
-
-import { connect } from 'react-redux';
-
-import { Register } from '../actions';
-
+import axiosWithAuth  from '../utils/axiosWithAuth';
 
 import * as yup from 'yup';
 
@@ -78,7 +73,7 @@ const RegistrationForm = props =>{
 
     const submitForm = event => {
         event.preventDefault();
-        axiosWithoutAuth()
+        axiosWithAuth()
         .post("/Register", users) //changed API call to match
         .then(res => {
          
@@ -190,11 +185,5 @@ const RegistrationForm = props =>{
 
     );
 }
-const mapStateToProps = state => {
-    return {
-      register: state.register
-    }
-  }
 
-  export default connect(mapStateToProps, {Register} )(RegistrationForm)
-// export default RegistrationForm;
+export default RegistrationForm;

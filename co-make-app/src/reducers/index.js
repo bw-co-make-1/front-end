@@ -1,3 +1,6 @@
+
+
+
 import {
  LOGIN_USER_START,
   LOGIN_USER_SUCCESS,
@@ -45,19 +48,23 @@ PUT_ISSUE_FAIL,
 
   } from '../actions';
 
+ 
+
   const initialState = {
     login: [],
-    register: [],
+    register: '',
     member: {
       username: "",
       password: "",
     },
+    user: null,
     issue: [],
     error: '',
     isFetching: false,
+    isLoggingIn: false,
     isLoggedIn: false,
-    token: '',
-    
+    token: null,
+
   };
 
 
@@ -89,11 +96,15 @@ PUT_ISSUE_FAIL,
             error: ''
           };
         case LOGIN_USER_SUCCESS:
+          localStorage.setItem("user", JSON.stringify(action.payload.user));
+          localStorage.setItem("token", JSON.stringify(action.payload.token));
           return {
             ...state,
             ...action.payload,
             isLoggedIn: true,
             isFetching: false,
+            token: action.payload,
+            user: action.payload,
             error: ''
           };
         case LOGIN_USER_FAIL:

@@ -1,45 +1,32 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import IssueCards from "../component/IssueCards.js";
-import axiosWithAuth from "../utils/axiosWithAuth";
-import { connect } from 'react-redux';
-import { GetPosts } from '../actions';
+import axiosWithAuth from "../utils/axiosWithAuth.js";
+
+import axios from 'axios';
 
 
-const Dashboard = () => {
-const [issue, setIssue] = useState([]);
+const Dashboard = ({issues}) => {
+console.log(issues); //sees issues fine.
 
-const getIssues = () => {
-  axiosWithAuth()
-.get('/Issue')
-  .then(res => {
-      console.log("issues:", res.data);
-      setIssue(res.data);
-    })
-  .catch(err => console.log(err.response))
-};
-
-useEffect(() => {
-  getIssues(); 
-  
-}, []);
-console.log("Updated Issues:", issue );
+if (!issues) {
+  return <div>We're looking for issues...</div>
+}
 
   return (
     <div className="post-list">
-      {issue.map(post => (
-          <Link key={post.id} to={`/posts/${post.id}`}>
-            <IssueCards post={post} /> 
+      {
+      issues.map(post => (
+          <Link key={post.id} to={`/issue/${post.id}`}>
+            <IssueCards {...post} /> 
+            {/* required spread op to see info */}
+            
           </Link>
         ))
       }
     </div>
   );
 }
-const mapStateToProps = state => {
-  return {
-    issue: state.issue
-  }
-}
 
-export default connect(mapStateToProps, {GetPosts} )(Dashboard);
+
+export default Dashboard;

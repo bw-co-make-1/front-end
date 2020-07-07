@@ -1,5 +1,9 @@
+import {useCallback} from 'react';
+import {useDispatch} from 'react-redux';
+import {useHistory as history} from 'react-router-dom';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import axios from "axios";
+
 
 
 //login - .post - /api/Login 
@@ -47,7 +51,10 @@ export const PUT_ISSUE_START = 'PUT_ISSUE_START';
 export const PUT_ISSUE_SUCCESS = 'PUT_ISSUE_SUCCESS';
 export const PUT_ISSUE_FAIL = 'PUT_ISSUE_FAIL';
 
-export const Login = (username, password, history) => dispatch => {
+// const dispatch = useDispatch();
+
+
+export const Login = (token, password, history) => dispatch => {
   dispatch({type: LOGIN_USER_START});
   return axiosWithAuth()
   .post("/Login") 
@@ -55,11 +62,8 @@ export const Login = (username, password, history) => dispatch => {
     console.log("login:", res.data);
     localStorage.setItem('token', res.data.token);
     console.log(res.data.token);
-    history.push('/dashboard');
-
-    dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data})
-  
-  })
+    dispatch({ type: LOGIN_USER_SUCCESS, payload: res.data.token})})
+    // .then(history.push('/dashboard'))
   .catch(err => dispatch({ type: LOGIN_USER_FAIL, payload: err }));
 }
 
