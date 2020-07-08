@@ -12,6 +12,7 @@ import PrivateRoute from "./component/PrivateRoute";
 import Dashboard from './component/Dashboard';
 import IssueCards from './component/IssueCards';
 import Issue from './component/Issue';
+import UpdateIssue from './component/UpdateIssue';
 
 import './App.css';
 import './component/forms.css';
@@ -21,9 +22,11 @@ import {IssueContext} from './component/IssueContext';
 
 
 function App() {
-  
-  const [issueList, setIssueList] = useState([]);
 
+  const [issueList, setIssueList] = useState([]);
+  const [issue, setIssue] = useState([]);
+const [issue_id, setIssue_id] = useState([]);
+const [post, setPost] = useState([]);
   var axios = require('axios');
 
 var config = {
@@ -33,6 +36,31 @@ var config = {
     'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IkFkbWluIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU5Mzg0MjY2MywiZXhwIjoxNTk0NzA2NjYzfQ.XUoHq1AoHbOuHFeefnKqNvjbBMHrTQZEC4M0GgjJG3M'
   }
 };
+
+var idconfig = {
+  method: 'get',
+  url: `https://co-make1.herokuapp.com/api/Issue/${issue_id}`,
+  headers: { 
+    'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IkFkbWluIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU5Mzg0MjY2MywiZXhwIjoxNTk0NzA2NjYzfQ.XUoHq1AoHbOuHFeefnKqNvjbBMHrTQZEC4M0GgjJG3M'
+  }
+};
+
+const getIssue = () => {
+  axios(idconfig)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    setIssue(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  };
+  
+  useEffect(() => {
+    getIssue();
+  }, []);
+
+
 const getIssueList = () => {
 axios(config)
 .then(function (response) {
@@ -68,19 +96,31 @@ useEffect(() => {
       <PrivateRoute exact path='/dashboard' >
            
     {/* //dashboard is the list. */}
-<Dashboard issues={issueList} setIssueList={setIssueList} />
+  <Dashboard issues={issueList}
+ setIssueList={setIssueList}
+ issue_id={issue_id}
+  // props={props}
+   />
 </PrivateRoute>
       
         {/* //logic for cards */}
       <Route path='/issue/:id' >
-      <Issue setIssueList={setIssueList} issues={issueList}   />
+      <Issue 
+      setIssueList={setIssueList}
+       issues={issueList}
+       issue={issue}
+       issue_id={issue_id}
+       post={post}
+      //  issue={RECT.params.issue_id}
+      //     props={props}
+           />
         {/* <IssueCards setIssueList = {setIssueList} /> */}
       </Route>
 
       {/* //update method */}
-      {/* <Route path="/update-issue/:id" >
-        <IssueUpdate setIssueList={setMovieList} issues={issueList} />
-      </Route> */}
+      <Route path="/update-issue/:id" >
+        <UpdateIssue setIssueList={setIssueList} issues={issueList} post={post} />
+      </Route>
 
       </Router>
       

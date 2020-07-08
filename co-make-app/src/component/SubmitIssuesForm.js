@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useHistory } from "react";
 import * as yup from "yup";
-import { connect } from 'react-redux';
-import { AddPosts } from '../actions';
+
 // import {useHistory} from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import axiosWithAuth from '../utils/axiosWithAuth.js';
 
 const token = localStorage.getItem("token");
+console.log("Token from SubmitIssues", token);
+
+var axios = require('axios');
 
 const history = useHistory;
 const Form = () => {
   const initialFormState = {
     
-    
+    photo: null,
     city: "",
     state: "",
     zip_code: "",
@@ -30,6 +32,15 @@ const Form = () => {
 
   const [errors, setErrors] = useState(initialFormState);
 
+  var config = {
+    method: 'post',
+    url: 'https://co-make1.herokuapp.com/api/Issue',
+    headers: { 
+      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IkFkbWluIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU5Mzg0MjY2MywiZXhwIjoxNTk0NzA2NjYzfQ.XUoHq1AoHbOuHFeefnKqNvjbBMHrTQZEC4M0GgjJG3M'
+    },
+    data : formState
+  };
+    
   const formSchema = yup.object().shape({
     
       city: yup.string().required("City is a required field"),
@@ -60,33 +71,37 @@ const Form = () => {
       setIsButtonDisabled(!valid);
     });
   }, [formState, formSchema]);
+ 
 
-  const submitForm = e => {
-    e.preventDefault();
+  const submitForm = event => {
+    event.preventDefault();
+  
 
-    axiosWithAuth()
-      .post("Issue", formState)
-      .then(response => {
-        setPost(response.data);
+    axios(config)
+    // .post("https://co-make1.herokuapp.com/api/Issue") //changed API call to match
+    .then(res => {
+     
+      setPost(res.data);
+      console.log("successful API POST!", res.data);
 
-        setFormState({
-          
-          
-          city: "",
-          state: "",
-          zip_code: "",
-          issue: "",
-          description: "",
-          photo: ""
-        });
-
-        // setServerError(null);
-        history.push('/Dashboard')
-      })
-      .catch(err => {
-        setServerError("oops! something happened!");
+      setFormState({
+        city: "",
+        state: "",
+        zip_code: "",
+        issue: "",
+        description: "",
+        photo: null
       });
-  };
+      
+      console.log("users data within issue", formState);
+      history.push("/dashboard");
+
+    })
+    .catch(err =>{
+        console.log(err.res);
+    });
+};
+
 
   // onChange function
   const inputChange = e => {

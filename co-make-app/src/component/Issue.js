@@ -3,23 +3,52 @@ import React, { useEffect, useState } from "react";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { useParams, useHistory } from "react-router-dom";
 import IssueCards from "./IssueCards";
+import IssueVotes from './IssueVotes';
+import { ContainerDiv, StyledH2 } from './Styles'
+import '../App.css';
 
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IkFkbWluIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU5Mzg0MjY2MywiZXhwIjoxNTk0NzA2NjYzfQ.XUoHq1AoHbOuHFeefnKqNvjbBMHrTQZEC4M0GgjJG3M';
 var axios = require('axios');
 
 
 
-function Issue({ setIssueList }) {
-  const { push } = useHistory();
-  const [issue, setIssue] = useState(null);
+function Issue(props) {
+    const { push } = useHistory();
+    const [vote, newVotes] = useState();
+    const newVote = () => {
+    newVotes(vote + 1);
+    }
+    const [issue, setIssue] = useState();
+    const [post, setPost] = useState();
+    const [issue_id, setIssue_id] = useState();
+    console.log("props: ", props);
+    const params = useParams();
+
+    var config = {
+        method: 'get',
+        url: `https://co-make1.herokuapp.com/api/Issue/${props.id}`,
+        headers: { 
+          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IkFkbWluIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU5Mzg0MjY2MywiZXhwIjoxNTk0NzA2NjYzfQ.XUoHq1AoHbOuHFeefnKqNvjbBMHrTQZEC4M0GgjJG3M'
+        }
+      };
+
+      var delconfig = {
+        method: 'delete',
+        url: `https://co-make1.herokuapp.com/api/Issue/${props.id}`,
+        headers: { 
+          'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZmlyc3RfbmFtZSI6IkFkbWluIiwiaXNfYWRtaW4iOnRydWUsImlhdCI6MTU5Mzg0MjY2MywiZXhwIjoxNTk0NzA2NjYzfQ.XUoHq1AoHbOuHFeefnKqNvjbBMHrTQZEC4M0GgjJG3M',
+          'Access-Control-Allow-Origin': "*"
+        }
+      };
+      
+              
+
+  const fetchIssue = () => {
   
-  const params = useParams();
-  
-  const fetchIssue = (issue_id) => {
-    axiosWithAuth()
-      .get(`/Issue/${issue_id}`, issue_id)
+      axios(config)
       .then(res => {
-      setIssue(res.data)
+        console.log("issue.js info: ", res.data)
+        setIssue(res.data)
       console.log("issue.js info: ", res.data)
       }
       )
@@ -31,44 +60,44 @@ function Issue({ setIssueList }) {
     axiosWithAuth()
       .get("Issue")
       .then(res => 
-        setIssueList(res.data)
+        props.setIssueList(res.data)
         )
       .catch(err => console.log(err.response));
   };
 
   const handleDelete = e => {
     e.preventDefault();
-    axios
-      .delete(`Issue/${params.id}`)
+    // axiosWithAuth()
+
+    //   .delete(`Issue/${params.id}`)
+    axios(delconfig)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));})
+        
+      
       .then(res => {
         console.log("delete", res.data);
         getNewList();
-        push(`/dashboard`);
+        push(`/dashboard`);})
         
-      })
+     
       .catch(err =>
         console.error("Issue.js: handleDelete: err: ", err.message, err.response)
       );
   };
 
-  useEffect(() => {
-    fetchIssue(params.issue_id);
-  }, [params.issue_id]);
 
-  
-
-
-  if (!issue) {
+  if (!props.post) {
     return <div>Loading issue information...</div>;
   }
 
   return (
     <div className="save-wrapper">
-      <IssueCards post={issue} />
+       <IssueCards {...props} post={props} />
       
       <button
         className="md-button"
-        onClick={() => push(`/update-issue/${issue.id}`)}
+        onClick={() => push(`/update-issue/${props.id}`)}
       >
         Edit
       </button>
